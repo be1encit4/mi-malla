@@ -10,15 +10,26 @@ body {
 
 h1 {
   color: #d14c84;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   font-size: 22px;
 }
 
-/* Mensaje de desplazamiento */
+.contador-creditos {
+  font-size: 14px;
+  font-weight: bold;
+  color: #c94082;
+  background-color: #ffe0ec;
+  border: 1px solid #f3a3c6;
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+
 .scroll-hint {
   font-size: 14px;
   color: #b44c76;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   font-style: italic;
 }
 
@@ -97,45 +108,4 @@ h1 {
   border-style: dashed;
   border-color: #ccc;
   cursor: not-allowed;
-}
-
-.contador-creditos {
-  color: #d14c84;
-  font-weight: bold;
-  font-size: 16px;
-  margin-bottom: 15px;
-  background-color: #ffe3f0;
-  display: inline-block;
-  padding: 8px 15px;
-  border-radius: 12px;
-  box-shadow: 0 0 5px rgba(255, 192, 203, 0.4);
-  border: 2px dashed #f3a3c6;
-}
-
-.tooltip {
-  visibility: hidden;
-  opacity: 0;
-  background-color: #ffcce0;
-  color: #000;
-  text-align: center;
-  padding: 5px;
-  border-radius: 5px;
-  position: absolute;
-  z-index: 10;
-  bottom: 110%;
-  left: 50%;
-  transform: translateX(-50%);
-  transition: opacity 0.3s;
-  font-size: 12px;
-  max-width: 150px;
-  box-shadow: 0 0 5px rgba(0,0,0,0.2);
-}
-
-.curso {
-  position: relative;
-}
-
-.curso:hover .tooltip {
-  visibility: visible;
-  opacity: 1;
 }
