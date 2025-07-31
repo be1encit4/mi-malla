@@ -58,8 +58,7 @@ const mallaCurricular = {
     "Física del Estado Sólido": { creditos: 5, prereqs: ["Mecánica Estadística y Termodinámica"] },
     "Física Nuclear": { creditos: 5, prereqs: ["Electromagnetismo II"] },
     "Instrumentación Científica": { creditos: 4, prereqs: ["Electrónica I", "Física Experimental IV"] },
-    "EE3": { creditos: 4, prereqs: [] },
-    "EE1": { creditos: 3, prereqs: [] }
+    "EE3": { creditos: 4, prereqs: [] }
   },
   "IX Ciclo": {
     "Tesis I": { creditos: 6, prereqs: [] },
