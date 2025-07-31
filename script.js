@@ -115,19 +115,6 @@ function contarCreditos() {
   contador.textContent = `Créditos aprobados: ${aprobados} / ${TOTAL_CREDITOS}`;
 }
 
-function obtenerPrerequisitosTexto(nombre) {
-  for (const ciclo in mallaCurricular) {
-    const curso = mallaCurricular[ciclo][nombre];
-    if (curso) {
-      if (curso.prereqs.length === 0) {
-        return "Sin prerrequisitos";
-      }
-      return "Prerrequisitos: " + curso.prereqs.join(", ");
-    }
-  }
-  return "";
-}
-
 function renderMalla() {
   const tablaCiclos = document.getElementById("tablaCiclos");
   const scrollX = tablaCiclos.scrollLeft;
@@ -162,13 +149,8 @@ function renderMalla() {
       creditosEl.textContent = `${curso.creditos} créditos`;
       creditosEl.className = "creditos";
 
-      const tooltip = document.createElement("div");
-      tooltip.className = "tooltip";
-      tooltip.textContent = obtenerPrerequisitosTexto(nombre);
-
       btn.appendChild(nombreEl);
       btn.appendChild(creditosEl);
-      btn.appendChild(tooltip);
 
       btn.onmousedown = e => e.preventDefault();
 
