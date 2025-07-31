@@ -168,28 +168,23 @@ function renderMalla() {
 
       btn.appendChild(nombreEl);
       btn.appendChild(creditosEl);
-      btn.appendChild(tooltip);
 
-      btn.onmousedown = e => e.preventDefault();
+      const tooltipWrapper = document.createElement("div");
+tooltipWrapper.className = "tooltip-wrapper";
 
-      btn.onclick = () => {
-        if (btn.classList.contains("bloqueado")) return;
-        estadoCursos[nombre] = !estadoCursos[nombre];
-        guardarEstado();
-        renderMalla();
-      };
+const tooltip = document.createElement("div");
+tooltip.className = "tooltip-text";
+tooltip.textContent = obtenerPrerequisitosTexto(nombre);
 
-      columna.appendChild(btn);
-    }
+tooltipWrapper.appendChild(btn);
+tooltipWrapper.appendChild(tooltip);
 
-    tablaCiclos.appendChild(columna);
-  }
+tooltipWrapper.onmousedown = e => e.preventDefault();
+tooltipWrapper.onclick = () => {
+  if (btn.classList.contains("bloqueado")) return;
+  estadoCursos[nombre] = !estadoCursos[nombre];
+  guardarEstado();
+  renderMalla();
+};
 
-  requestAnimationFrame(() => {
-    tablaCiclos.scrollLeft = scrollX;
-  });
-
-  contarCreditos();
-}
-
-renderMalla();
+columna.appendChild(tooltipWrapper);
