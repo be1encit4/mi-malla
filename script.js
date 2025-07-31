@@ -138,36 +138,41 @@ function renderMalla() {
     const columna = document.createElement("div");
     columna.classList.add("columna-ciclo");
 
-    const titulo = document.createElement("h2");
-    titulo.textContent = ciclo;
+    const titulo = document.createElement("div");
     titulo.className = "ciclo";
+    titulo.textContent = ciclo;
     columna.appendChild(titulo);
 
     for (const nombre in mallaCurricular[ciclo]) {
       const curso = mallaCurricular[ciclo][nombre];
       const btn = document.createElement("div");
-      btn.classList.add("curso");
+      btn.className = "curso";
 
-      // Tooltip como atributo title
-      btn.title = obtenerPrerequisitosTexto(nombre);
-
+      // Aplica estilo según estado
       if (estadoCursos[nombre]) {
         btn.classList.add("aprobado");
       } else if (!puedeDesbloquear(nombre)) {
         btn.classList.add("bloqueado");
       }
 
+      // Tooltip usando atributo title
+      const prerequisitos = prerequisitosCursos[nombre];
+      if (prerequisitos && prerequisitos.length > 0) {
+        btn.title = `Prerrequisitos: ${prerequisitos.join(", ")}`;
+      }
+
       const nombreEl = document.createElement("div");
-      nombreEl.textContent = nombre;
       nombreEl.className = "nombre-curso";
+      nombreEl.textContent = nombre;
 
       const creditosEl = document.createElement("div");
-      creditosEl.textContent = `${curso.creditos} créditos`;
       creditosEl.className = "creditos";
+      creditosEl.textContent = `${curso.creditos} créditos`;
 
       btn.appendChild(nombreEl);
       btn.appendChild(creditosEl);
 
+      // Manejo de clic
       btn.onmousedown = e => e.preventDefault();
       btn.onclick = () => {
         if (btn.classList.contains("bloqueado")) return;
@@ -186,5 +191,6 @@ function renderMalla() {
     tablaCiclos.scrollLeft = scrollX;
   });
 
-  contarCreditos();
+  contarCreditos(); // actualiza el recuento
 }
+
