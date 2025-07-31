@@ -90,6 +90,17 @@ function puedeDesbloquear(nombre) {
   }
   return false;
 }
+function deseleccionarDependientes(cursoBase) {
+  for (const ciclo in mallaCurricular) {
+    for (const nombre in mallaCurricular[ciclo]) {
+      const curso = mallaCurricular[ciclo][nombre];
+      if (estadoCursos[nombre] && curso.prereqs.includes(cursoBase)) {
+        estadoCursos[nombre] = false;
+        deseleccionarDependientes(nombre); // recursivo
+      }
+    }
+  }
+}
 
 function contarCreditos() {
   let aprobados = 0;
