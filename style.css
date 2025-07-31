@@ -11,13 +11,21 @@ body {
 h1 {
   color: #d14c84;
   margin-bottom: 20px;
-  font-size: 18px;
+  font-size: 22px;
+}
+
+/* Mensaje de desplazamiento */
+.scroll-hint {
+  font-size: 14px;
+  color: #b44c76;
+  margin-bottom: 10px;
+  font-style: italic;
 }
 
 .tabla-ciclos {
   display: flex;
   flex-direction: row;
-  gap: 15px;
+  gap: 20px;
   overflow-x: auto;
   padding-bottom: 10px;
   margin-bottom: 20px;
@@ -38,43 +46,43 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
+  gap: 8px;
 }
 
 .ciclo {
   color: #c94082;
-  font-size: 13px;
+  font-size: 15px;
   margin-bottom: 5px;
   border-bottom: 1px dashed #f3a3c6;
   padding-bottom: 2px;
 }
 
 .curso {
-  width: 120px;
-  min-height: 50px;
-  padding: 5px;
-  border: 1.5px solid #e6a6c9;
+  width: 140px;
+  min-height: 60px;
+  padding: 8px;
+  border: 2px solid #e6a6c9;
   border-radius: 8px;
   background-color: #fddde6;
   transition: all 0.3s ease;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .nombre-curso {
   font-weight: bold;
-  font-size: 10px;
+  font-size: 12px;
 }
 
 .creditos {
-  font-size: 9px;
+  font-size: 10px;
   color: #666;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .curso.aprobado {
@@ -90,3 +98,4 @@ h1 {
   border-color: #ccc;
   cursor: not-allowed;
 }
+
