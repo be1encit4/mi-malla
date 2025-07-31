@@ -153,10 +153,18 @@ function renderMalla() {
 
       btn.onmousedown = e => e.preventDefault();
       btn.onclick = () => {
-        if (btn.classList.contains("bloqueado")) return;
-        estadoCursos[nombre] = !estadoCursos[nombre];
-        guardarEstado();
-        renderMalla();
+  if (btn.classList.contains("bloqueado")) return;
+
+  const nuevoEstado = !estadoCursos[nombre];
+  estadoCursos[nombre] = nuevoEstado;
+
+  if (!nuevoEstado) {
+    // Si se desactiva un curso, desactiva también los que dependen de él
+    deseleccionarDependientes(nombre);
+  }
+
+  guardarEstado();
+  renderMalla();
       };
 
       columna.appendChild(btn);
