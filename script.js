@@ -89,7 +89,7 @@ const mallaCurricular = {
     function puedeDesbloquear(nombre) {
       for (const ciclo in mallaCurricular) {
         if (nombre in mallaCurricular[ciclo]) {
-          return mallaCurricular[ciclo][nombre].prereqs.every(pre => estadoCursos[pre]);
+          return mallaCurricular[ciclo][nombre].prereqs.every(pre => estadoCursos.hasOwnProperty(pre) && estadoCursos[pre]);
         }
       }
       return false;
