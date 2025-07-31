@@ -66,7 +66,7 @@ const mallaCurricular = {
         "EE4": { creditos: 4, prereqs: [] },
         "EE5": { creditos: 4, prereqs: [] },
         "Electivo Libre 1": { creditos: 4, prereqs: [] },
-        "Didáctica de la Física": { creditos: 3, prereqs: [] }
+        "Didáctica de la Física": { creditos: 3, prereqs: ["Física IV"] }
       },
       "X Ciclo": {
         "Tesis II": { creditos: 8, prereqs: ["Tesis I"] },
