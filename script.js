@@ -138,59 +138,53 @@ function renderMalla() {
     const columna = document.createElement("div");
     columna.classList.add("columna-ciclo");
 
-    const titulo = document.createElement("div");
-    titulo.className = "ciclo";
+    const titulo = document.createElement("h2");
     titulo.textContent = ciclo;
+    titulo.className = "ciclo";
     columna.appendChild(titulo);
 
     for (const nombre in mallaCurricular[ciclo]) {
       const curso = mallaCurricular[ciclo][nombre];
       const btn = document.createElement("div");
-      btn.className = "curso";
+      btn.classList.add("curso");
 
-      // Aplica estilo según estado
       if (estadoCursos[nombre]) {
         btn.classList.add("aprobado");
       } else if (!puedeDesbloquear(nombre)) {
         btn.classList.add("bloqueado");
       }
 
-      // Tooltip usando atributo title
-      const prerequisitos = prerequisitosCursos[nombre];
-      if (prerequisitos && prerequisitos.length > 0) {
-        btn.title = `Prerrequisitos: ${prerequisitos.join(", ")}`;
-      }
-
       const nombreEl = document.createElement("div");
-      nombreEl.className = "nombre-curso";
       nombreEl.textContent = nombre;
+      nombreEl.className = "nombre-curso";
 
       const creditosEl = document.createElement("div");
+      creditosEl.textContent = ${curso.creditos} créditos;
       creditosEl.className = "creditos";
-      creditosEl.textContent = `${curso.creditos} créditos`;
+
+      const tooltip = document.createElement("div");
+      tooltip.className = "tooltip";
+      tooltip.textContent = obtenerPrerequisitosTexto(nombre);
 
       btn.appendChild(nombreEl);
       btn.appendChild(creditosEl);
 
-      // Manejo de clic
-      btn.onmousedown = e => e.preventDefault();
-      btn.onclick = () => {
-        if (btn.classList.contains("bloqueado")) return;
-        estadoCursos[nombre] = !estadoCursos[nombre];
-        guardarEstado();
-        renderMalla();
-      };
+      const tooltipWrapper = document.createElement("div");
+tooltipWrapper.className = "tooltip-wrapper";
 
-      columna.appendChild(btn);
-    }
+const tooltip = document.createElement("div");
+tooltip.className = "tooltip-text";
+tooltip.textContent = obtenerPrerequisitosTexto(nombre);
 
-    tablaCiclos.appendChild(columna);
-  }
+tooltipWrapper.appendChild(btn);
+tooltipWrapper.appendChild(tooltip);
 
-  requestAnimationFrame(() => {
-    tablaCiclos.scrollLeft = scrollX;
-  });
+tooltipWrapper.onmousedown = e => e.preventDefault();
+tooltipWrapper.onclick = () => {
+  if (btn.classList.contains("bloqueado")) return;
+  estadoCursos[nombre] = !estadoCursos[nombre];
+  guardarEstado();
+  renderMalla();
+};
 
-  contarCreditos(); // actualiza el recuento
-}
-
+columna.appendChild(tooltipWrapper);
