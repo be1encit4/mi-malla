@@ -132,25 +132,32 @@ function renderMalla() {
     columna.appendChild(titulo);
 
     for (const nombre in mallaCurricular[ciclo]) {
-      const curso = mallaCurricular[ciclo][nombre];
-      const btn = document.createElement("div");
-      btn.classList.add("curso");
+  const curso = mallaCurricular[ciclo][nombre];
+  const btn = document.createElement("div");
+  btn.classList.add("curso");
 
-      if (estadoCursos[nombre]) {
-        btn.classList.add("aprobado");
-      } else if (!puedeDesbloquear(nombre)) {
-        btn.classList.add("bloqueado");
-      }
+  if (estadoCursos[nombre]) {
+    btn.classList.add("aprobado");
+  } else if (!puedeDesbloquear(nombre)) {
+    btn.classList.add("bloqueado");
+  }
 
-      const nombreEl = document.createElement("div");
-      nombreEl.textContent = nombre;
-      nombreEl.className = "nombre-curso";
+  const nombreEl = document.createElement("div");
+  nombreEl.textContent = nombre;
+  nombreEl.className = "nombre-curso";
 
-      const creditosEl = document.createElement("div");
-      creditosEl.textContent = `${curso.creditos} créditos`;
-      creditosEl.className = "creditos";
+  const creditosEl = document.createElement("div");
+  creditosEl.textContent = `${curso.creditos} créditos`;
+  creditosEl.className = "creditos";
 
-      btn.appendChild(nombreEl);
+  // 🟡 ✨ Agrega esto:
+  const tooltip = document.createElement("div");
+  tooltip.className = "tooltip";
+  tooltip.textContent = obtenerPrerequisitosTexto(nombre);
+  btn.appendChild(tooltip);
+  // 🟡 ✨ Hasta aquí
+
+  btn.appendChild(nombreEl);
       btn.appendChild(creditosEl);
 
       btn.onmousedown = e => e.preventDefault();
@@ -173,6 +180,18 @@ function renderMalla() {
   });
 
   contarCreditos();
+}
+function obtenerPrerequisitosTexto(nombre) {
+  for (const ciclo in mallaCurricular) {
+    const curso = mallaCurricular[ciclo][nombre];
+    if (curso) {
+      if (curso.prereqs.length === 0) {
+        return "Sin prerrequisitos";
+      }
+      return "Prerrequisitos: " + curso.prereqs.join(", ");
+    }
+  }
+  return "";
 }
 
 renderMalla();
