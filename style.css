@@ -99,3 +99,16 @@ h1 {
   cursor: not-allowed;
 }
 
+.contador-creditos {
+  color: #d14c84;
+  font-weight: bold;
+  font-size: 16px;
+  margin-bottom: 15px;
+  background-color: #ffe3f0;
+  display: inline-block;
+  padding: 8px 15px;
+  border-radius: 12px;
+  box-shadow: 0 0 5px rgba(255, 192, 203, 0.4);
+  border: 2px dashed #f3a3c6;
+}
+
