@@ -112,7 +112,7 @@ function contarCreditos() {
     h1.insertAdjacentElement("afterend", contador);
   }
 
-  contador.textContent = `Créditos aprobados: ${aprobados} / ${TOTAL_CREDITOS}`;
+  contador.textContent = Créditos aprobados: ${aprobados} / ${TOTAL_CREDITOS};
 }
 
 function obtenerPrerequisitosTexto(nombre) {
