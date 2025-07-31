@@ -1,0 +1,92 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #fff1f7;
+  text-align: center;
+  padding: 20px;
+  margin: 0;
+  color: #444;
+  overflow-x: hidden;
+}
+
+h1 {
+  color: #d14c84;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.tabla-ciclos {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  overflow-x: auto;
+  padding-bottom: 10px;
+  margin-bottom: 20px;
+  scroll-behavior: smooth;
+}
+
+.tabla-ciclos::-webkit-scrollbar {
+  height: 6px;
+}
+
+.tabla-ciclos::-webkit-scrollbar-thumb {
+  background-color: #f3a3c6;
+  border-radius: 10px;
+}
+
+.columna-ciclo {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.ciclo {
+  color: #c94082;
+  font-size: 13px;
+  margin-bottom: 5px;
+  border-bottom: 1px dashed #f3a3c6;
+  padding-bottom: 2px;
+}
+
+.curso {
+  width: 120px;
+  min-height: 50px;
+  padding: 5px;
+  border: 1.5px solid #e6a6c9;
+  border-radius: 8px;
+  background-color: #fddde6;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+  font-size: 10px;
+}
+
+.nombre-curso {
+  font-weight: bold;
+  font-size: 10px;
+}
+
+.creditos {
+  font-size: 9px;
+  color: #666;
+  margin-top: 2px;
+}
+
+.curso.aprobado {
+  background-color: #f28cb1;
+  border-color: #d66794;
+  color: white;
+}
+
+.curso.bloqueado {
+  background-color: #f2f2f2;
+  color: #aaa;
+  border-style: dashed;
+  border-color: #ccc;
+  cursor: not-allowed;
+}
