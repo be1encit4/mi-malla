@@ -118,7 +118,6 @@ function contarCreditos() {
 function renderMalla() {
   const tablaCiclos = document.getElementById("tablaCiclos");
   const scrollX = tablaCiclos.scrollLeft;
-
   tablaCiclos.innerHTML = "";
 
   for (const ciclo in mallaCurricular) {
@@ -153,7 +152,6 @@ function renderMalla() {
       btn.appendChild(creditosEl);
 
       btn.onmousedown = e => e.preventDefault();
-
       btn.onclick = () => {
         if (btn.classList.contains("bloqueado")) return;
         estadoCursos[nombre] = !estadoCursos[nombre];
