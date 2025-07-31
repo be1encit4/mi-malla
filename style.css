@@ -111,3 +111,31 @@ h1 {
   box-shadow: 0 0 5px rgba(255, 192, 203, 0.4);
   border: 2px dashed #f3a3c6;
 }
+
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  background-color: #ffcce0;
+  color: #000;
+  text-align: center;
+  padding: 5px;
+  border-radius: 5px;
+  position: absolute;
+  z-index: 10;
+  bottom: 110%;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.3s;
+  font-size: 12px;
+  max-width: 150px;
+  box-shadow: 0 0 5px rgba(0,0,0,0.2);
+}
+
+.curso {
+  position: relative;
+}
+
+.curso:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
