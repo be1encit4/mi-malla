@@ -74,6 +74,8 @@ const mallaCurricular = {
   }
 };
 
+const TOTAL_CREDITOS = 222;
+
 let estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
 function guardarEstado() {
@@ -91,28 +93,39 @@ function puedeDesbloquear(nombre) {
 
 function contarCreditos() {
   let aprobados = 0;
-  let totales = 0;
 
   for (const ciclo in mallaCurricular) {
     for (const nombre in mallaCurricular[ciclo]) {
       const curso = mallaCurricular[ciclo][nombre];
-      totales += curso.creditos;
       if (estadoCursos[nombre]) {
         aprobados += curso.creditos;
       }
     }
   }
 
-  const contador = document.getElementById("contadorCreditos");
-  if (contador) {
-    contador.textContent = `Créditos aprobados: ${aprobados} / ${totales}`;
-  } else {
-    const nuevo = document.createElement("div");
-    nuevo.id = "contadorCreditos";
-    nuevo.className = "contador-creditos";
-    nuevo.textContent = `Créditos aprobados: ${aprobados} / ${totales}`;
-    document.body.insertBefore(nuevo, document.getElementById("malla"));
+  let contador = document.getElementById("contadorCreditos");
+  if (!contador) {
+    contador = document.createElement("div");
+    contador.id = "contadorCreditos";
+    contador.className = "contador-creditos";
+    const h1 = document.querySelector("h1");
+    h1.insertAdjacentElement("afterend", contador);
   }
+
+  contador.textContent = `Créditos aprobados: ${aprobados} / ${TOTAL_CREDITOS}`;
+}
+
+function obtenerPrerequisitosTexto(nombre) {
+  for (const ciclo in mallaCurricular) {
+    const curso = mallaCurricular[ciclo][nombre];
+    if (curso) {
+      if (curso.prereqs.length === 0) {
+        return "Sin prerrequisitos";
+      }
+      return "Prerrequisitos: " + curso.prereqs.join(", ");
+    }
+  }
+  return "";
 }
 
 function renderMalla() {
@@ -131,33 +144,31 @@ function renderMalla() {
     columna.appendChild(titulo);
 
     for (const nombre in mallaCurricular[ciclo]) {
-  const curso = mallaCurricular[ciclo][nombre];
-  const btn = document.createElement("div");
-  btn.classList.add("curso");
+      const curso = mallaCurricular[ciclo][nombre];
+      const btn = document.createElement("div");
+      btn.classList.add("curso");
 
-  if (estadoCursos[nombre]) {
-    btn.classList.add("aprobado");
-  } else if (!puedeDesbloquear(nombre)) {
-    btn.classList.add("bloqueado");
-  }
+      if (estadoCursos[nombre]) {
+        btn.classList.add("aprobado");
+      } else if (!puedeDesbloquear(nombre)) {
+        btn.classList.add("bloqueado");
+      }
 
-  const nombreEl = document.createElement("div");
-  nombreEl.textContent = nombre;
-  nombreEl.className = "nombre-curso";
+      const nombreEl = document.createElement("div");
+      nombreEl.textContent = nombre;
+      nombreEl.className = "nombre-curso";
 
-  const creditosEl = document.createElement("div");
-  creditosEl.textContent = `${curso.creditos} créditos`;
-  creditosEl.className = "creditos";
+      const creditosEl = document.createElement("div");
+      creditosEl.textContent = `${curso.creditos} créditos`;
+      creditosEl.className = "creditos";
 
-  // 🟡 ✨ Agrega esto:
-  const tooltip = document.createElement("div");
-  tooltip.className = "tooltip";
-  tooltip.textContent = obtenerPrerequisitosTexto(nombre);
-  btn.appendChild(tooltip);
-  // 🟡 ✨ Hasta aquí
+      const tooltip = document.createElement("div");
+      tooltip.className = "tooltip";
+      tooltip.textContent = obtenerPrerequisitosTexto(nombre);
 
-  btn.appendChild(nombreEl);
+      btn.appendChild(nombreEl);
       btn.appendChild(creditosEl);
+      btn.appendChild(tooltip);
 
       btn.onmousedown = e => e.preventDefault();
 
@@ -179,18 +190,6 @@ function renderMalla() {
   });
 
   contarCreditos();
-}
-function obtenerPrerequisitosTexto(nombre) {
-  for (const ciclo in mallaCurricular) {
-    const curso = mallaCurricular[ciclo][nombre];
-    if (curso) {
-      if (curso.prereqs.length === 0) {
-        return "Sin prerrequisitos";
-      }
-      return "Prerrequisitos: " + curso.prereqs.join(", ");
-    }
-  }
-  return "";
 }
 
 renderMalla();
