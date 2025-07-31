@@ -35,7 +35,7 @@ const mallaCurricular = {
       "V Ciclo": {
         "Física Matemática II": { creditos: 5, prereqs: ["Física Matemática I", "Análisis Matemático II"] },
         "Mecánica Clásica": { creditos: 6, prereqs: ["Física Matemática I", "Física III"] },
-        "Física IV": { creditos: 5, prereqs: ["Análisis Matemático II", "Física", "Física III"] },
+        "Física IV": { creditos: 5, prereqs: ["Análisis Matemático II", "Física III"] },
         "Física Experimental IV": { creditos: 2, prereqs: ["Física III", "Física Experimental III"] },
         "Física Computacional": { creditos: 5, prereqs: ["Introducción a la Programación", "Física III"] }
       },
