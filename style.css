@@ -115,7 +115,7 @@ h1 {
 }
 
 .curso.bloqueado {
-  background: linear-gradient(145deg, #eeeeee, #ffffff);
+  background: #f5f5f5;
   color: #bbb;
   border: none;
   cursor: not-allowed;
