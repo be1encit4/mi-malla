@@ -85,6 +85,11 @@ h1 {
   font-size: 12px;
 }
 
+.curso:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 18px rgba(209, 76, 132, 0.2);
+}
+
 .nombre-curso {
   font-weight: bold;
   font-size: 12px;
