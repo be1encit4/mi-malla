@@ -1,3 +1,51 @@
+const opcionesElectivas = {
+  "Taller I": [
+    { nombre: "Taller de Técnicas de Comunicación Eficaz", creditos: 1, prereqs: [] },
+    { nombre: "Taller de Música", creditos: 1, prereqs: [] },
+    { nombre: "Taller de Liderazgo y Trabajo en Equipo", creditos: 1, prereqs: [] }
+  ],
+
+  "Taller II": [
+    { nombre: "Taller de Manejo de TIC", creditos: 1, prereqs: [] },
+    { nombre: "Taller de Danza Folklórica", creditos: 1, prereqs: [] },
+    { nombre: "Taller de Deporte", creditos: 1, prereqs: [] }
+  ],
+
+  "EE1": [
+    { nombre: "Astronomía", creditos: 3, prereqs: ["Física III", "Física Experimental III"] },
+    { nombre: "Gestión de Proyectos Científicos", creditos: 3, prereqs: [] },
+    { nombre: "Teoría de la Información", creditos: 3, prereqs: ["Física Computacional", "Mecánica Cuántica I"] }
+  ],
+
+  "EE2": [
+    { nombre: "Electrónica II", creditos: 4, prereqs: ["Electrónica I"] },
+    { nombre: "Dinámica de Fluidos", creditos: 4, prereqs: ["Mecánica Clásica"] }
+  ],
+
+  "EE3": [
+    { nombre: "Teoría de la Relatividad", creditos: 4, prereqs: ["Mecánica Clásica", "Física Matemática III", "Electromagnetismo II"] },
+    { nombre: "Biofísica", creditos: 4, prereqs: ["Física IV", "Física Experimental IV"] }
+  ],
+
+  "Electivos IX-X": [
+    { nombre: "Introducción a la Teoría Cuántica de Campo", creditos: 4, prereqs: ["Física Matemática III", "Electromagnetismo II", "Mecánica Cuántica II"] },
+    { nombre: "Física de la Materia Condensada", creditos: 4, prereqs: ["Mecánica Estadística y Termodinámica", "Mecánica Cuántica II", "Física del Estado Sólido"] },
+    { nombre: "Física de Nanoestructuras", creditos: 4, prereqs: ["Mecánica Estadística y Termodinámica", "Física del Estado Sólido"] },
+    { nombre: "Películas Delgadas", creditos: 4, prereqs: ["Mecánica Clásica", "Mecánica Cuántica I"] },
+    { nombre: "Espectroscopia Láser", creditos: 4, prereqs: ["Mecánica Cuántica II", "Física del Estado Sólido"] },
+    { nombre: "Biomateriales", creditos: 4, prereqs: ["Física de Materiales I"] },
+    { nombre: "Física de la Energía Solar Fotovoltaica", creditos: 4, prereqs: ["Mecánica Estadística y Termodinámica", "Física del Estado Sólido"] },
+    { nombre: "Electrónica III", creditos: 4, prereqs: ["Electrónica II"] },
+    { nombre: "Física de Materiales II", creditos: 4, prereqs: ["Física de Materiales I"] },
+    { nombre: "Física Forense", creditos: 4, prereqs: ["Física IV"] },
+    { nombre: "Meteorología y Climatología", creditos: 4, prereqs: ["Mecánica Estadística y Termodinámica"] },
+    { nombre: "Filosofía de la Física", creditos: 4, prereqs: ["Mecánica Cuántica I", "Historia de la Física"] },
+    { nombre: "Tópicos Avanzados de Física", creditos: 4, prereqs: ["Física de Materiales I", "Física del Estado Sólido", "Física Nuclear"] },
+    { nombre: "Física de Partículas", creditos: 4, prereqs: ["Introducción a la Teoría Cuántica de Campo"] },
+    { nombre: "Física Médica", creditos: 4, prereqs: ["Física Nuclear"] }
+  ]
+};
+
 const mallaCurricular = {
   "I Ciclo": {
     "Introducción al Análisis Matemático": { creditos: 4, prereqs: [] },
@@ -6,18 +54,20 @@ const mallaCurricular = {
     "Pensamiento Lógico Matemático": { creditos: 3, prereqs: [] },
     "Lectura Crítica y Redacción de Textos Académicos": { creditos: 3, prereqs: [] },
     "Desarrollo Personal": { creditos: 3, prereqs: [] },
-    "Taller I": { creditos: 1, prereqs: [] }
+    "Taller I": { tipo: "electivo", grupo: "Taller I", creditos: 1, descripcion: "Elige 1 de 3 talleres" }
   },
+
   "II Ciclo": {
-    "Análisis Matemático": { creditos: 4, prereqs: [] },
+    "Análisis Matemático": { creditos: 4, prereqs: ["Introducción al Análisis Matemático"] },
     "Estadística General": { creditos: 4, prereqs: [] },
     "Física I": { creditos: 3, prereqs: ["Introducción al Análisis Matemático"] },
     "Física Experimental I": { creditos: 2, prereqs: [] },
     "Sociedad, Cultura y Ecología": { creditos: 3, prereqs: [] },
     "Ética, Convivencia Humana y Ciudadanía": { creditos: 3, prereqs: [] },
     "Cultura Investigativa y Pensamiento Crítico": { creditos: 3, prereqs: [] },
-    "Taller II": { creditos: 1, prereqs: [] }
+    "Taller II": { tipo: "electivo", grupo: "Taller II", creditos: 1, descripcion: "Elige 1 de 3 talleres" }
   },
+
   "III Ciclo": {
     "Análisis Matemático I": { creditos: 5, prereqs: ["Análisis Matemático"] },
     "Álgebra Lineal": { creditos: 5, prereqs: ["Álgebra y Geometría"] },
@@ -25,20 +75,23 @@ const mallaCurricular = {
     "Física Experimental II": { creditos: 2, prereqs: ["Física I", "Física Experimental I"] },
     "Química": { creditos: 5, prereqs: [] }
   },
+
   "IV Ciclo": {
     "Análisis Matemático II": { creditos: 5, prereqs: ["Análisis Matemático I"] },
-    "Física Matemática I": { creditos: 5, prereqs: ["Álgebra Lineal"] },
+    "Física Matemática I": { creditos: 5, prereqs: ["Análisis Matemático I", "Álgebra Lineal"] },
     "Física III": { creditos: 5, prereqs: ["Análisis Matemático I", "Física II"] },
     "Física Experimental III": { creditos: 2, prereqs: ["Física II", "Física Experimental II"] },
     "Introducción a la Programación": { creditos: 5, prereqs: [] }
   },
+
   "V Ciclo": {
-    "Física Matemática II": { creditos: 5, prereqs: ["Física Matemática I", "Análisis Matemático II"] },
+    "Física Matemática II": { creditos: 5, prereqs: ["Análisis Matemático II", "Física Matemática I"] },
     "Mecánica Clásica": { creditos: 6, prereqs: ["Física Matemática I", "Física III"] },
     "Física IV": { creditos: 5, prereqs: ["Análisis Matemático II", "Física III"] },
     "Física Experimental IV": { creditos: 2, prereqs: ["Física III", "Física Experimental III"] },
-    "Física Computacional": { creditos: 5, prereqs: ["Introducción a la Programación", "Física III"] }
+    "Física Computacional": { creditos: 5, prereqs: ["Física III", "Introducción a la Programación"] }
   },
+
   "VI Ciclo": {
     "Física Matemática III": { creditos: 5, prereqs: ["Física Matemática II"] },
     "Electromagnetismo I": { creditos: 5, prereqs: ["Física Matemática II", "Mecánica Clásica"] },
@@ -46,30 +99,34 @@ const mallaCurricular = {
     "Electrónica I": { creditos: 5, prereqs: ["Física III", "Física Experimental III"] },
     "Historia de la Física": { creditos: 2, prereqs: [] }
   },
+
   "VII Ciclo": {
     "Mecánica Estadística y Termodinámica": { creditos: 5, prereqs: ["Mecánica Cuántica I"] },
     "Electromagnetismo II": { creditos: 5, prereqs: ["Electromagnetismo I"] },
     "Mecánica Cuántica II": { creditos: 5, prereqs: ["Mecánica Cuántica I"] },
-    "EE2": { creditos: 4, prereqs: [] },
-    "EE1": { creditos: 3, prereqs: [] }
+    "EE2": { tipo: "electivo", grupo: "EE2", creditos: 4, descripcion: "Elige 1 de 2" },
+    "EE1": { tipo: "electivo", grupo: "EE1", creditos: 3, descripcion: "Elige 1 de 3" }
   },
+
   "VIII Ciclo": {
     "Física de Materiales I": { creditos: 5, prereqs: ["Mecánica Estadística y Termodinámica", "Electromagnetismo II"] },
     "Física del Estado Sólido": { creditos: 5, prereqs: ["Mecánica Estadística y Termodinámica"] },
-    "Física Nuclear": { creditos: 5, prereqs: ["Electromagnetismo II"] },
-    "Instrumentación Científica": { creditos: 4, prereqs: ["Electrónica I", "Física Experimental IV"] },
-    "EE3": { creditos: 4, prereqs: [] }
+    "Física Nuclear": { creditos: 5, prereqs: ["Electromagnetismo II", "Mecánica Cuántica II"] },
+    "Instrumentación Científica": { creditos: 4, prereqs: ["Física Experimental IV", "Física Computacional", "Electrónica I"] },
+    "EE3": { tipo: "electivo", grupo: "EE3", creditos: 4, descripcion: "Elige 1 de 2" }
   },
+
   "IX Ciclo": {
-    "Tesis I": { creditos: 6, prereqs: [] },
-    "EE4": { creditos: 4, prereqs: [] },
-    "EE5": { creditos: 4, prereqs: [] },
-    "Electivo Libre 1": { creditos: 4, prereqs: [] },
-    "Didáctica de la Física": { creditos: 3, prereqs: ["Física IV"] }
+    "Tesis I": { creditos: 6, prereqs: ["Física de Materiales I", "Física del Estado Sólido", "Física Nuclear"] },
+    "Didáctica de la Física": { creditos: 3, prereqs: ["Física IV", "Física Experimental IV"] },
+    "EE4": { tipo: "electivo", grupo: "Electivos IX-X", creditos: 4, descripcion: "Elige 1 electivo" },
+    "EE5": { tipo: "electivo", grupo: "Electivos IX-X", creditos: 4, descripcion: "Elige 1 electivo" },
+    "Electivo Libre 1": { tipo: "electivo", grupo: "Electivos IX-X", creditos: 4, descripcion: "Elige 1 electivo" }
   },
+
   "X Ciclo": {
     "Tesis II": { creditos: 8, prereqs: ["Tesis I"] },
-    "Electivo Libre 2": { creditos: 4, prereqs: [] },
+    "Electivo Libre 2": { tipo: "electivo", grupo: "Electivos IX-X", creditos: 4, descripcion: "Elige 1 electivo" },
     "Práctica Pre Profesional": { creditos: 10, prereqs: [] }
   }
 };
@@ -82,24 +139,174 @@ function guardarEstado() {
   localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
 }
 
-function puedeDesbloquear(nombre) {
+function obtenerCurso(nombreCurso) {
   for (const ciclo in mallaCurricular) {
-    if (mallaCurricular[ciclo][nombre]) {
-      return mallaCurricular[ciclo][nombre].prereqs.every(pre => estadoCursos[pre]);
+    if (mallaCurricular[ciclo][nombreCurso]) {
+      return mallaCurricular[ciclo][nombreCurso];
     }
   }
-  return false;
+  return null;
 }
+
+function obtenerOpcionElectiva(nombreOpcion) {
+  for (const grupo in opcionesElectivas) {
+    const opcion = opcionesElectivas[grupo].find(item => item.nombre === nombreOpcion);
+    if (opcion) return opcion;
+  }
+  return null;
+}
+
+function obtenerTodosLosEspacios() {
+  const espacios = [];
+
+  for (const ciclo in mallaCurricular) {
+    for (const nombre in mallaCurricular[ciclo]) {
+      espacios.push(nombre);
+    }
+  }
+
+  return espacios;
+}
+
+function obtenerEspaciosElectivos() {
+  const espacios = [];
+
+  for (const ciclo in mallaCurricular) {
+    for (const nombre in mallaCurricular[ciclo]) {
+      const curso = mallaCurricular[ciclo][nombre];
+      if (curso.tipo === "electivo") {
+        espacios.push(nombre);
+      }
+    }
+  }
+
+  return espacios;
+}
+
+function cursoAprobado(nombreCurso) {
+  if (estadoCursos[nombreCurso] === true) return true;
+
+  return Object.values(estadoCursos).some(valor => valor === nombreCurso);
+}
+
+function prerequisitosCumplidos(prereqs) {
+  return prereqs.every(pre => cursoAprobado(pre));
+}
+
+function obtenerPrereqsPendientes(prereqs) {
+  return prereqs.filter(pre => !cursoAprobado(pre));
+}
+
+function opcionYaElegidaEnOtroEspacio(nombreOpcion, espacioActual) {
+  return obtenerEspaciosElectivos().some(espacio => {
+    return espacio !== espacioActual && estadoCursos[espacio] === nombreOpcion;
+  });
+}
+
+function puedeDesbloquear(nombreCurso) {
+  const curso = obtenerCurso(nombreCurso);
+
+  if (!curso) return false;
+  if (curso.tipo === "electivo") return true;
+
+  return prerequisitosCumplidos(curso.prereqs);
+}
+
+function obtenerMensajeBloqueo(nombreCurso) {
+  const curso = obtenerCurso(nombreCurso);
+
+  if (!curso || curso.tipo === "electivo") return "";
+
+  const pendientes = obtenerPrereqsPendientes(curso.prereqs);
+
+  if (pendientes.length > 0) {
+    return `Requisitos pendientes: ${pendientes.join(", ")}`;
+  }
+
+  return "";
+}
+
 function deseleccionarDependientes(cursoBase) {
   for (const ciclo in mallaCurricular) {
     for (const nombre in mallaCurricular[ciclo]) {
       const curso = mallaCurricular[ciclo][nombre];
-      if (estadoCursos[nombre] && curso.prereqs.includes(cursoBase)) {
+
+      if (curso.tipo === "electivo") {
+        const seleccion = estadoCursos[nombre];
+        if (!seleccion) continue;
+
+        const opcion = obtenerOpcionElectiva(seleccion);
+
+        if (opcion && opcion.prereqs.includes(cursoBase)) {
+          delete estadoCursos[nombre];
+          deseleccionarDependientes(seleccion);
+        }
+      } else if (estadoCursos[nombre] && curso.prereqs.includes(cursoBase)) {
         estadoCursos[nombre] = false;
-        deseleccionarDependientes(nombre); // recursivo
+        deseleccionarDependientes(nombre);
       }
     }
   }
+}
+
+function seleccionarCursoNormal(nombreCurso) {
+  const curso = obtenerCurso(nombreCurso);
+
+  if (!curso || curso.tipo === "electivo") return;
+
+  if (estadoCursos[nombreCurso]) {
+    estadoCursos[nombreCurso] = false;
+    deseleccionarDependientes(nombreCurso);
+    return;
+  }
+
+  if (!prerequisitosCumplidos(curso.prereqs)) return;
+
+  estadoCursos[nombreCurso] = true;
+}
+
+function seleccionarOpcionElectiva(nombreEspacio, nombreOpcion) {
+  const espacio = obtenerCurso(nombreEspacio);
+
+  if (!espacio || espacio.tipo !== "electivo") return;
+
+  const opcion = opcionesElectivas[espacio.grupo].find(item => item.nombre === nombreOpcion);
+
+  if (!opcion) return;
+  if (!prerequisitosCumplidos(opcion.prereqs)) return;
+  if (opcionYaElegidaEnOtroEspacio(nombreOpcion, nombreEspacio)) return;
+
+  const seleccionAnterior = estadoCursos[nombreEspacio];
+
+  if (seleccionAnterior && seleccionAnterior !== nombreOpcion) {
+    deseleccionarDependientes(seleccionAnterior);
+  }
+
+  estadoCursos[nombreEspacio] = nombreOpcion;
+}
+
+function quitarSeleccionElectiva(nombreEspacio) {
+  const seleccionAnterior = estadoCursos[nombreEspacio];
+
+  if (seleccionAnterior) {
+    delete estadoCursos[nombreEspacio];
+    deseleccionarDependientes(seleccionAnterior);
+  }
+}
+
+function obtenerCreditosDelEspacio(nombreEspacio) {
+  const curso = obtenerCurso(nombreEspacio);
+
+  if (!curso) return 0;
+
+  if (curso.tipo !== "electivo") {
+    return curso.creditos;
+  }
+
+  const seleccion = estadoCursos[nombreEspacio];
+  const opcion = obtenerOpcionElectiva(seleccion);
+
+  return opcion ? opcion.creditos : curso.creditos;
 }
 
 function contarCreditos() {
@@ -108,17 +315,24 @@ function contarCreditos() {
   for (const ciclo in mallaCurricular) {
     for (const nombre in mallaCurricular[ciclo]) {
       const curso = mallaCurricular[ciclo][nombre];
-      if (estadoCursos[nombre]) {
+
+      if (curso.tipo === "electivo") {
+        if (estadoCursos[nombre]) {
+          aprobados += obtenerCreditosDelEspacio(nombre);
+        }
+      } else if (estadoCursos[nombre]) {
         aprobados += curso.creditos;
       }
     }
   }
 
   let contador = document.getElementById("contadorCreditos");
+
   if (!contador) {
     contador = document.createElement("div");
     contador.id = "contadorCreditos";
     contador.className = "contador-creditos";
+
     const h1 = document.querySelector("h1");
     h1.insertAdjacentElement("afterend", contador);
   }
@@ -126,9 +340,130 @@ function contarCreditos() {
   contador.textContent = `Créditos aprobados: ${aprobados} / ${TOTAL_CREDITOS}`;
 }
 
+function cerrarSelectorElectivo() {
+  const modal = document.getElementById("modalElectivos");
+
+  if (modal) {
+    modal.remove();
+  }
+}
+
+function abrirSelectorElectivo(nombreEspacio) {
+  cerrarSelectorElectivo();
+
+  const espacio = obtenerCurso(nombreEspacio);
+  const opciones = opcionesElectivas[espacio.grupo] || [];
+  const seleccionActual = estadoCursos[nombreEspacio];
+
+  const overlay = document.createElement("div");
+  overlay.id = "modalElectivos";
+  overlay.className = "modal-electivos";
+
+  const caja = document.createElement("div");
+  caja.className = "modal-electivos-caja";
+
+  const encabezado = document.createElement("div");
+  encabezado.className = "modal-electivos-header";
+
+  const titulo = document.createElement("h3");
+  titulo.textContent = `Selecciona ${nombreEspacio}`;
+
+  const cerrar = document.createElement("button");
+  cerrar.className = "modal-cerrar";
+  cerrar.textContent = "×";
+  cerrar.onclick = cerrarSelectorElectivo;
+
+  encabezado.appendChild(titulo);
+  encabezado.appendChild(cerrar);
+
+  const ayuda = document.createElement("p");
+  ayuda.className = "modal-ayuda";
+  ayuda.textContent = espacio.descripcion || "Elige una opción para este electivo.";
+
+  const lista = document.createElement("div");
+  lista.className = "lista-opciones-electivas";
+
+  opciones.forEach(opcion => {
+    const pendientes = obtenerPrereqsPendientes(opcion.prereqs);
+    const yaElegida = opcionYaElegidaEnOtroEspacio(opcion.nombre, nombreEspacio);
+    const estaSeleccionada = seleccionActual === opcion.nombre;
+    const bloqueada = pendientes.length > 0 || yaElegida;
+
+    const item = document.createElement("button");
+    item.className = "opcion-electiva";
+
+    if (estaSeleccionada) item.classList.add("seleccionada");
+    if (bloqueada) item.classList.add("opcion-bloqueada");
+
+    const nombre = document.createElement("strong");
+    nombre.textContent = opcion.nombre;
+
+    const creditos = document.createElement("span");
+    creditos.textContent = `${opcion.creditos} créditos`;
+
+    const detalle = document.createElement("small");
+
+    if (pendientes.length > 0) {
+      detalle.textContent = `Pendiente: ${pendientes.join(", ")}`;
+    } else if (yaElegida) {
+      detalle.textContent = "Ya elegiste este curso en otro espacio electivo.";
+    } else if (estaSeleccionada) {
+      detalle.textContent = "Seleccionado actualmente.";
+    } else if (opcion.prereqs.length > 0) {
+      detalle.textContent = `Requisitos cumplidos: ${opcion.prereqs.join(", ")}`;
+    } else {
+      detalle.textContent = "Sin requisitos.";
+    }
+
+    item.appendChild(nombre);
+    item.appendChild(creditos);
+    item.appendChild(detalle);
+
+    item.onclick = () => {
+      if (bloqueada) return;
+
+      seleccionarOpcionElectiva(nombreEspacio, opcion.nombre);
+      guardarEstado();
+      cerrarSelectorElectivo();
+      renderMalla();
+    };
+
+    lista.appendChild(item);
+  });
+
+  caja.appendChild(encabezado);
+  caja.appendChild(ayuda);
+  caja.appendChild(lista);
+
+  if (seleccionActual) {
+    const quitar = document.createElement("button");
+    quitar.className = "quitar-electivo";
+    quitar.textContent = "Quitar selección";
+    quitar.onclick = () => {
+      quitarSeleccionElectiva(nombreEspacio);
+      guardarEstado();
+      cerrarSelectorElectivo();
+      renderMalla();
+    };
+
+    caja.appendChild(quitar);
+  }
+
+  overlay.appendChild(caja);
+
+  overlay.onclick = evento => {
+    if (evento.target === overlay) {
+      cerrarSelectorElectivo();
+    }
+  };
+
+  document.body.appendChild(overlay);
+}
+
 function renderMalla() {
   const tablaCiclos = document.getElementById("tablaCiclos");
   const scrollX = tablaCiclos.scrollLeft;
+
   tablaCiclos.innerHTML = "";
 
   for (const ciclo in mallaCurricular) {
@@ -145,37 +480,60 @@ function renderMalla() {
       const btn = document.createElement("div");
       btn.classList.add("curso");
 
-      if (estadoCursos[nombre]) {
+      const esElectivo = curso.tipo === "electivo";
+      const seleccionElectiva = esElectivo ? estadoCursos[nombre] : null;
+
+      if (esElectivo) {
+        btn.classList.add("electivo");
+
+        if (seleccionElectiva) {
+          btn.classList.add("aprobado");
+        }
+      } else if (estadoCursos[nombre]) {
         btn.classList.add("aprobado");
       } else if (!puedeDesbloquear(nombre)) {
         btn.classList.add("bloqueado");
+        btn.title = obtenerMensajeBloqueo(nombre);
       }
 
       const nombreEl = document.createElement("div");
-      nombreEl.textContent = nombre;
       nombreEl.className = "nombre-curso";
+      nombreEl.textContent = seleccionElectiva || nombre;
 
       const creditosEl = document.createElement("div");
-      creditosEl.textContent = `${curso.creditos} créditos`;
       creditosEl.className = "creditos";
+
+      if (esElectivo) {
+        creditosEl.textContent = seleccionElectiva
+          ? `${obtenerCreditosDelEspacio(nombre)} créditos`
+          : `${curso.creditos} créditos`;
+      } else {
+        creditosEl.textContent = `${curso.creditos} créditos`;
+      }
 
       btn.appendChild(nombreEl);
       btn.appendChild(creditosEl);
 
+      if (esElectivo) {
+        const estadoEl = document.createElement("div");
+        estadoEl.className = "estado-electivo";
+        estadoEl.textContent = seleccionElectiva ? `${nombre} seleccionado` : curso.descripcion;
+        btn.appendChild(estadoEl);
+      }
+
       btn.onmousedown = e => e.preventDefault();
+
       btn.onclick = () => {
-  if (btn.classList.contains("bloqueado")) return;
+        if (esElectivo) {
+          abrirSelectorElectivo(nombre);
+          return;
+        }
 
-  const nuevoEstado = !estadoCursos[nombre];
-  estadoCursos[nombre] = nuevoEstado;
+        if (btn.classList.contains("bloqueado")) return;
 
-  if (!nuevoEstado) {
-    // Si se desactiva un curso, desactiva también los que dependen de él
-    deseleccionarDependientes(nombre);
-  }
-
-  guardarEstado();
-  renderMalla();
+        seleccionarCursoNormal(nombre);
+        guardarEstado();
+        renderMalla();
       };
 
       columna.appendChild(btn);
@@ -191,4 +549,43 @@ function renderMalla() {
   contarCreditos();
 }
 
+function migrarEstadoAntiguo() {
+  const espaciosValidos = new Set(obtenerTodosLosEspacios());
+  const espaciosElectivos = obtenerEspaciosElectivos();
+
+  for (const clave in estadoCursos) {
+    if (espaciosValidos.has(clave)) continue;
+
+    if (estadoCursos[clave] === true) {
+      for (const espacio of espaciosElectivos) {
+        const curso = obtenerCurso(espacio);
+        const opciones = opcionesElectivas[curso.grupo] || [];
+        const existeEnGrupo = opciones.some(opcion => opcion.nombre === clave);
+
+        if (existeEnGrupo && !estadoCursos[espacio]) {
+          estadoCursos[espacio] = clave;
+          break;
+        }
+      }
+    }
+
+    delete estadoCursos[clave];
+  }
+
+  for (const espacio of espaciosElectivos) {
+    const seleccion = estadoCursos[espacio];
+    if (!seleccion) continue;
+
+    const curso = obtenerCurso(espacio);
+    const existe = opcionesElectivas[curso.grupo].some(opcion => opcion.nombre === seleccion);
+
+    if (!existe) {
+      delete estadoCursos[espacio];
+    }
+  }
+
+  guardarEstado();
+}
+
+migrarEstadoAntiguo();
 renderMalla();
