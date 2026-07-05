@@ -1,6 +1,138 @@
+:root {
+  --bg: #fff1f7;
+  --titulo: #d14c84;
+  --texto-suave: #b44c76;
+  --contador-bg: #ffe0ec;
+  --contador-border: #f3a3c6;
+  --contador-text: #c94082;
+
+  --curso-bg-1: #ffe6f0;
+  --curso-bg-2: #f8cddd;
+
+  --curso-aprobado-1: #f28cb1;
+  --curso-aprobado-2: #d66794;
+  --curso-aprobado-shadow: rgba(214, 103, 148, 0.4);
+
+  --electivo-bg-1: #fff0f7;
+  --electivo-bg-2: #ffd9ea;
+
+  --modal-bg: #fff8fb;
+  --modal-shadow: rgba(120, 40, 80, 0.24);
+}
+
+body.tema-rosa {
+  --bg: #fff1f7;
+  --titulo: #d14c84;
+  --texto-suave: #b44c76;
+  --contador-bg: #ffe0ec;
+  --contador-border: #f3a3c6;
+  --contador-text: #c94082;
+
+  --curso-bg-1: #ffe6f0;
+  --curso-bg-2: #f8cddd;
+
+  --curso-aprobado-1: #f28cb1;
+  --curso-aprobado-2: #d66794;
+  --curso-aprobado-shadow: rgba(214, 103, 148, 0.4);
+
+  --electivo-bg-1: #fff0f7;
+  --electivo-bg-2: #ffd9ea;
+
+  --modal-bg: #fff8fb;
+  --modal-shadow: rgba(120, 40, 80, 0.24);
+}
+
+body.tema-amarillo {
+  --bg: #fff9df;
+  --titulo: #d19a00;
+  --texto-suave: #a97800;
+  --contador-bg: #fff1b8;
+  --contador-border: #f3c94d;
+  --contador-text: #b37a00;
+
+  --curso-bg-1: #fff3bd;
+  --curso-bg-2: #f7d970;
+
+  --curso-aprobado-1: #f5c542;
+  --curso-aprobado-2: #d99a00;
+  --curso-aprobado-shadow: rgba(217, 154, 0, 0.35);
+
+  --electivo-bg-1: #fff8da;
+  --electivo-bg-2: #ffe99a;
+
+  --modal-bg: #fffbed;
+  --modal-shadow: rgba(150, 110, 0, 0.24);
+}
+
+body.tema-verde {
+  --bg: #effff4;
+  --titulo: #2f9f5b;
+  --texto-suave: #2d7f4c;
+  --contador-bg: #d9f8e4;
+  --contador-border: #8bd9a8;
+  --contador-text: #23884a;
+
+  --curso-bg-1: #dbf8e5;
+  --curso-bg-2: #aee8c2;
+
+  --curso-aprobado-1: #5fd98a;
+  --curso-aprobado-2: #2f9f5b;
+  --curso-aprobado-shadow: rgba(47, 159, 91, 0.35);
+
+  --electivo-bg-1: #edfff3;
+  --electivo-bg-2: #c6f2d5;
+
+  --modal-bg: #f5fff8;
+  --modal-shadow: rgba(40, 120, 70, 0.24);
+}
+
+body.tema-celeste {
+  --bg: #effaff;
+  --titulo: #2597c7;
+  --texto-suave: #27799c;
+  --contador-bg: #d8f2ff;
+  --contador-border: #91d7f3;
+  --contador-text: #1685b5;
+
+  --curso-bg-1: #ddf4ff;
+  --curso-bg-2: #a9def5;
+
+  --curso-aprobado-1: #58c3ee;
+  --curso-aprobado-2: #238dbd;
+  --curso-aprobado-shadow: rgba(35, 141, 189, 0.35);
+
+  --electivo-bg-1: #f0fbff;
+  --electivo-bg-2: #c5edff;
+
+  --modal-bg: #f5fcff;
+  --modal-shadow: rgba(30, 110, 150, 0.24);
+}
+
+body.tema-rojo {
+  --bg: #fff1f1;
+  --titulo: #c94b4b;
+  --texto-suave: #a33c3c;
+  --contador-bg: #ffe0e0;
+  --contador-border: #f3a0a0;
+  --contador-text: #b93636;
+
+  --curso-bg-1: #ffe4e4;
+  --curso-bg-2: #f4bebe;
+
+  --curso-aprobado-1: #ef7777;
+  --curso-aprobado-2: #c94b4b;
+  --curso-aprobado-shadow: rgba(201, 75, 75, 0.35);
+
+  --electivo-bg-1: #fff0f0;
+  --electivo-bg-2: #ffd2d2;
+
+  --modal-bg: #fff8f8;
+  --modal-shadow: rgba(130, 40, 40, 0.24);
+}
+
 body {
   font-family: 'Montserrat', sans-serif;
-  background-color: #fff1f7;
+  background-color: var(--bg);
   text-align: center;
   padding: 20px;
   margin: 0;
@@ -12,7 +144,7 @@ body {
 }
 
 h1 {
-  color: #d14c84;
+  color: var(--titulo);
   margin-bottom: 10px;
   font-size: 22px;
 }
@@ -20,9 +152,9 @@ h1 {
 .contador-creditos {
   font-size: 14px;
   font-weight: bold;
-  color: #c94082;
-  background-color: #ffe0ec;
-  border: 1px solid #f3a3c6;
+  color: var(--contador-text);
+  background-color: var(--contador-bg);
+  border: 1px solid var(--contador-border);
   display: inline-block;
   padding: 6px 14px;
   border-radius: 20px;
@@ -31,7 +163,7 @@ h1 {
 
 .scroll-hint {
   font-size: 14px;
-  color: #b44c76;
+  color: var(--texto-suave);
   margin-bottom: 15px;
   font-style: italic;
 }
@@ -51,7 +183,7 @@ h1 {
 }
 
 .tabla-ciclos::-webkit-scrollbar-thumb {
-  background-color: #f3a3c6;
+  background-color: var(--contador-border);
   border-radius: 10px;
 }
 
@@ -64,10 +196,10 @@ h1 {
 }
 
 .ciclo {
-  color: #c94082;
+  color: var(--contador-text);
   font-size: 15px;
   margin-bottom: 5px;
-  border-bottom: 1px dashed #f3a3c6;
+  border-bottom: 1px dashed var(--contador-border);
   padding-bottom: 2px;
 }
 
@@ -77,7 +209,7 @@ h1 {
   padding: 8px;
   border-radius: 12px;
   border: none;
-  background: linear-gradient(145deg, #ffe6f0, #f8cddd);
+  background: linear-gradient(145deg, var(--curso-bg-1), var(--curso-bg-2));
   transition: all 0.25s ease;
   box-shadow:
     4px 4px 8px rgba(0, 0, 0, 0.08),
@@ -110,11 +242,11 @@ h1 {
 }
 
 .curso.aprobado {
-  background: linear-gradient(145deg, #f28cb1, #d66794);
+  background: linear-gradient(145deg, var(--curso-aprobado-1), var(--curso-aprobado-2));
   color: white;
   border: none;
   box-shadow:
-    4px 4px 10px rgba(214, 103, 148, 0.4),
+    4px 4px 10px var(--curso-aprobado-shadow),
     -4px -4px 8px rgba(255, 255, 255, 0.3);
 }
 
@@ -139,8 +271,8 @@ h1 {
 }
 
 .curso.electivo {
-  background: linear-gradient(145deg, #fff0f7, #ffd9ea);
-  border: 1px dashed #f3a3c6;
+  background: linear-gradient(145deg, var(--electivo-bg-1), var(--electivo-bg-2));
+  border: 1px dashed var(--contador-border);
 }
 
 .curso.electivo:hover {
@@ -148,11 +280,11 @@ h1 {
 }
 
 .curso.electivo.aprobado {
-  background: linear-gradient(145deg, #f28cb1, #d66794) !important;
+  background: linear-gradient(145deg, var(--curso-aprobado-1), var(--curso-aprobado-2)) !important;
   border: none !important;
   color: #ffffff !important;
   box-shadow:
-    4px 4px 10px rgba(214, 103, 148, 0.4),
+    4px 4px 10px var(--curso-aprobado-shadow),
     -4px -4px 8px rgba(255, 255, 255, 0.3) !important;
 }
 
@@ -183,12 +315,12 @@ h1 {
   max-height: min(460px, calc(100vh - 24px));
   overflow-y: auto;
   z-index: 9999;
-  background: #fff8fb;
-  border: 1px solid #f3a3c6;
+  background: var(--modal-bg);
+  border: 1px solid var(--contador-border);
   border-radius: 20px;
   padding: 16px;
   box-shadow:
-    0 18px 45px rgba(120, 40, 80, 0.24),
+    0 18px 45px var(--modal-shadow),
     0 4px 14px rgba(201, 64, 130, 0.14);
   font-family: 'Montserrat', sans-serif;
   text-align: left;
@@ -369,12 +501,12 @@ body::after {
 }
 
 .curso.electivo.aprobado {
-  background: linear-gradient(145deg, #f28cb1, #d66794);
-  color: white;
-  border: none;
+  background: linear-gradient(145deg, var(--curso-aprobado-1), var(--curso-aprobado-2)) !important;
+  border: none !important;
+  color: #ffffff !important;
   box-shadow:
-    4px 4px 10px rgba(214, 103, 148, 0.4),
-    -4px -4px 8px rgba(255, 255, 255, 0.3);
+    4px 4px 10px var(--curso-aprobado-shadow),
+    -4px -4px 8px rgba(255, 255, 255, 0.3) !important;
 }
 
 .curso.electivo.aprobado .creditos,
@@ -384,4 +516,48 @@ body::after {
 
 .curso.electivo.aprobado:hover {
   border: none;
+}
+
+.selector-tema {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 4px 0 12px;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid var(--contador-border);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.05);
+}
+
+.selector-tema span {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--contador-text);
+}
+
+.btn-tema {
+  border: 1px solid var(--contador-border);
+  background: var(--contador-bg);
+  color: var(--contador-text);
+  border-radius: 999px;
+  padding: 6px 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-tema:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 12px rgba(0, 0, 0, 0.08);
+}
+
+.btn-tema.activo {
+  background: linear-gradient(145deg, var(--curso-aprobado-1), var(--curso-aprobado-2));
+  color: white;
+  border-color: transparent;
 }
