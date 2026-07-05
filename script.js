@@ -657,3 +657,35 @@ function migrarEstadoAntiguo() {
 
 migrarEstadoAntiguo();
 renderMalla();
+
+function aplicarTema(tema) {
+  document.body.classList.remove(
+    "tema-rosa",
+    "tema-amarillo",
+    "tema-verde",
+    "tema-celeste",
+    "tema-rojo"
+  );
+
+  document.body.classList.add(`tema-${tema}`);
+
+  localStorage.setItem("temaMalla", tema);
+
+  document.querySelectorAll(".btn-tema").forEach(btn => {
+    btn.classList.toggle("activo", btn.dataset.tema === tema);
+  });
+}
+
+function inicializarSelectorTema() {
+  const temaGuardado = localStorage.getItem("temaMalla") || "rosa";
+
+  aplicarTema(temaGuardado);
+
+  document.querySelectorAll(".btn-tema").forEach(btn => {
+    btn.addEventListener("click", () => {
+      aplicarTema(btn.dataset.tema);
+    });
+  });
+}
+
+inicializarSelectorTema();
