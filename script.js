@@ -135,6 +135,10 @@ const TOTAL_CREDITOS = 222;
 
 let estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
+let manejadorCierreElectivo = null;
+let manejadorEscapeElectivo = null;
+let manejadorScrollElectivo = null;
+
 function guardarEstado() {
   localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
 }
@@ -145,14 +149,19 @@ function obtenerCurso(nombreCurso) {
       return mallaCurricular[ciclo][nombreCurso];
     }
   }
+
   return null;
 }
 
 function obtenerOpcionElectiva(nombreOpcion) {
   for (const grupo in opcionesElectivas) {
     const opcion = opcionesElectivas[grupo].find(item => item.nombre === nombreOpcion);
-    if (opcion) return opcion;
+
+    if (opcion) {
+      return opcion;
+    }
   }
+
   return null;
 }
 
@@ -174,6 +183,7 @@ function obtenerEspaciosElectivos() {
   for (const ciclo in mallaCurricular) {
     for (const nombre in mallaCurricular[ciclo]) {
       const curso = mallaCurricular[ciclo][nombre];
+
       if (curso.tipo === "electivo") {
         espacios.push(nombre);
       }
@@ -184,7 +194,9 @@ function obtenerEspaciosElectivos() {
 }
 
 function cursoAprobado(nombreCurso) {
-  if (estadoCursos[nombreCurso] === true) return true;
+  if (estadoCursos[nombreCurso] === true) {
+    return true;
+  }
 
   return Object.values(estadoCursos).some(valor => valor === nombreCurso);
 }
@@ -233,6 +245,7 @@ function deseleccionarDependientes(cursoBase) {
 
       if (curso.tipo === "electivo") {
         const seleccion = estadoCursos[nombre];
+
         if (!seleccion) continue;
 
         const opcion = obtenerOpcionElectiva(seleccion);
@@ -341,43 +354,60 @@ function contarCreditos() {
 }
 
 function cerrarSelectorElectivo() {
-  const modal = document.getElementById("modalElectivos");
+  const popover = document.getElementById("popoverElectivos");
 
-  if (modal) {
-    modal.remove();
+  if (popover) {
+    popover.remove();
+  }
+
+  if (manejadorCierreElectivo) {
+    document.removeEventListener("mousedown", manejadorCierreElectivo);
+    manejadorCierreElectivo = null;
+  }
+
+  if (manejadorEscapeElectivo) {
+    document.removeEventListener("keydown", manejadorEscapeElectivo);
+    manejadorEscapeElectivo = null;
+  }
+
+  if (manejadorScrollElectivo) {
+    window.removeEventListener("scroll", manejadorScrollElectivo, true);
+    manejadorScrollElectivo = null;
   }
 }
 
-function abrirSelectorElectivo(nombreEspacio) {
+function abrirSelectorElectivo(nombreEspacio, botonOrigen) {
   cerrarSelectorElectivo();
 
   const espacio = obtenerCurso(nombreEspacio);
   const opciones = opcionesElectivas[espacio.grupo] || [];
   const seleccionActual = estadoCursos[nombreEspacio];
 
-  const overlay = document.createElement("div");
-  overlay.id = "modalElectivos";
-  overlay.className = "modal-electivos";
-
-  const caja = document.createElement("div");
-  caja.className = "modal-electivos-caja";
+  const popover = document.createElement("div");
+  popover.id = "popoverElectivos";
+  popover.className = "popover-electivos";
 
   const encabezado = document.createElement("div");
-  encabezado.className = "modal-electivos-header";
+  encabezado.className = "popover-electivos-header";
 
   const titulo = document.createElement("h3");
   titulo.textContent = `Selecciona ${nombreEspacio}`;
 
   const cerrar = document.createElement("button");
-  cerrar.className = "modal-cerrar";
+  cerrar.className = "popover-cerrar";
+  cerrar.type = "button";
   cerrar.textContent = "×";
-  cerrar.onclick = cerrarSelectorElectivo;
+
+  cerrar.onclick = evento => {
+    evento.stopPropagation();
+    cerrarSelectorElectivo();
+  };
 
   encabezado.appendChild(titulo);
   encabezado.appendChild(cerrar);
 
   const ayuda = document.createElement("p");
-  ayuda.className = "modal-ayuda";
+  ayuda.className = "popover-ayuda";
   ayuda.textContent = espacio.descripcion || "Elige una opción para este electivo.";
 
   const lista = document.createElement("div");
@@ -391,6 +421,7 @@ function abrirSelectorElectivo(nombreEspacio) {
 
     const item = document.createElement("button");
     item.className = "opcion-electiva";
+    item.type = "button";
 
     if (estaSeleccionada) item.classList.add("seleccionada");
     if (bloqueada) item.classList.add("opcion-bloqueada");
@@ -406,11 +437,11 @@ function abrirSelectorElectivo(nombreEspacio) {
     if (pendientes.length > 0) {
       detalle.textContent = `Pendiente: ${pendientes.join(", ")}`;
     } else if (yaElegida) {
-      detalle.textContent = "Ya elegiste este curso en otro espacio electivo.";
+      detalle.textContent = "Ya elegiste este curso en otro espacio.";
     } else if (estaSeleccionada) {
       detalle.textContent = "Seleccionado actualmente.";
     } else if (opcion.prereqs.length > 0) {
-      detalle.textContent = `Requisitos cumplidos: ${opcion.prereqs.join(", ")}`;
+      detalle.textContent = "Requisitos cumplidos.";
     } else {
       detalle.textContent = "Sin requisitos.";
     }
@@ -419,7 +450,9 @@ function abrirSelectorElectivo(nombreEspacio) {
     item.appendChild(creditos);
     item.appendChild(detalle);
 
-    item.onclick = () => {
+    item.onclick = evento => {
+      evento.stopPropagation();
+
       if (bloqueada) return;
 
       seleccionarOpcionElectiva(nombreEspacio, opcion.nombre);
@@ -431,33 +464,78 @@ function abrirSelectorElectivo(nombreEspacio) {
     lista.appendChild(item);
   });
 
-  caja.appendChild(encabezado);
-  caja.appendChild(ayuda);
-  caja.appendChild(lista);
+  popover.appendChild(encabezado);
+  popover.appendChild(ayuda);
+  popover.appendChild(lista);
 
   if (seleccionActual) {
     const quitar = document.createElement("button");
     quitar.className = "quitar-electivo";
+    quitar.type = "button";
     quitar.textContent = "Quitar selección";
-    quitar.onclick = () => {
+
+    quitar.onclick = evento => {
+      evento.stopPropagation();
+
       quitarSeleccionElectiva(nombreEspacio);
       guardarEstado();
       cerrarSelectorElectivo();
       renderMalla();
     };
 
-    caja.appendChild(quitar);
+    popover.appendChild(quitar);
   }
 
-  overlay.appendChild(caja);
+  document.body.appendChild(popover);
 
-  overlay.onclick = evento => {
-    if (evento.target === overlay) {
+  const rectBoton = botonOrigen.getBoundingClientRect();
+  const rectPopover = popover.getBoundingClientRect();
+
+  let left = rectBoton.left + rectBoton.width / 2 - rectPopover.width / 2;
+  let top = rectBoton.bottom + 10;
+
+  const margen = 12;
+
+  if (left < margen) {
+    left = margen;
+  }
+
+  if (left + rectPopover.width > window.innerWidth - margen) {
+    left = window.innerWidth - rectPopover.width - margen;
+  }
+
+  if (top + rectPopover.height > window.innerHeight - margen) {
+    top = rectBoton.top - rectPopover.height - 10;
+  }
+
+  if (top < margen) {
+    top = margen;
+  }
+
+  popover.style.left = `${left}px`;
+  popover.style.top = `${top}px`;
+
+  setTimeout(() => {
+    manejadorCierreElectivo = evento => {
+      if (!popover.contains(evento.target) && !botonOrigen.contains(evento.target)) {
+        cerrarSelectorElectivo();
+      }
+    };
+
+    manejadorEscapeElectivo = evento => {
+      if (evento.key === "Escape") {
+        cerrarSelectorElectivo();
+      }
+    };
+
+    manejadorScrollElectivo = () => {
       cerrarSelectorElectivo();
-    }
-  };
+    };
 
-  document.body.appendChild(overlay);
+    document.addEventListener("mousedown", manejadorCierreElectivo);
+    document.addEventListener("keydown", manejadorEscapeElectivo);
+    window.addEventListener("scroll", manejadorScrollElectivo, true);
+  }, 0);
 }
 
 function renderMalla() {
@@ -525,7 +603,7 @@ function renderMalla() {
 
       btn.onclick = () => {
         if (esElectivo) {
-          abrirSelectorElectivo(nombre);
+          abrirSelectorElectivo(nombre, btn);
           return;
         }
 
@@ -574,6 +652,7 @@ function migrarEstadoAntiguo() {
 
   for (const espacio of espaciosElectivos) {
     const seleccion = estadoCursos[espacio];
+
     if (!seleccion) continue;
 
     const curso = obtenerCurso(espacio);
