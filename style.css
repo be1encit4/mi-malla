@@ -147,6 +147,25 @@ h1 {
   border-color: #df75a4;
 }
 
+.curso.electivo.aprobado {
+  background: linear-gradient(145deg, #f28cb1, #d66794) !important;
+  border: none !important;
+  color: #ffffff !important;
+  box-shadow:
+    4px 4px 10px rgba(214, 103, 148, 0.4),
+    -4px -4px 8px rgba(255, 255, 255, 0.3) !important;
+}
+
+.curso.electivo.aprobado .nombre-curso,
+.curso.electivo.aprobado .creditos,
+.curso.electivo.aprobado .estado-electivo {
+  color: #fff7fb !important;
+}
+
+.curso.electivo.aprobado:hover {
+  border: none !important;
+}
+
 .estado-electivo {
   font-size: 9px;
   margin-top: 4px;
