@@ -137,7 +137,6 @@ let estadoCursos = JSON.parse(localStorage.getItem("estadoCursos") || "{}");
 
 let manejadorCierreElectivo = null;
 let manejadorEscapeElectivo = null;
-let manejadorScrollElectivo = null;
 
 function guardarEstado() {
   localStorage.setItem("estadoCursos", JSON.stringify(estadoCursos));
@@ -369,11 +368,6 @@ function cerrarSelectorElectivo() {
     document.removeEventListener("keydown", manejadorEscapeElectivo);
     manejadorEscapeElectivo = null;
   }
-
-  if (manejadorScrollElectivo) {
-    window.removeEventListener("scroll", manejadorScrollElectivo, true);
-    manejadorScrollElectivo = null;
-  }
 }
 
 function abrirSelectorElectivo(nombreEspacio, botonOrigen) {
@@ -528,13 +522,8 @@ function abrirSelectorElectivo(nombreEspacio, botonOrigen) {
       }
     };
 
-    manejadorScrollElectivo = () => {
-      cerrarSelectorElectivo();
-    };
-
     document.addEventListener("mousedown", manejadorCierreElectivo);
     document.addEventListener("keydown", manejadorEscapeElectivo);
-    window.addEventListener("scroll", manejadorScrollElectivo, true);
   }, 0);
 }
 
