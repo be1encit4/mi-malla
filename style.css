@@ -276,7 +276,7 @@ h1 {
 }
 
 .curso.electivo:hover {
-  border-color: #df75a4;
+  border-color: var(--contador-text);
 }
 
 .curso.electivo.aprobado {
@@ -301,7 +301,7 @@ h1 {
 .estado-electivo {
   font-size: 9px;
   margin-top: 4px;
-  color: #9b3c68;
+  color: var(--contador-text);
   font-weight: 600;
 }
 
@@ -314,6 +314,8 @@ h1 {
   width: min(360px, calc(100vw - 24px));
   max-height: min(460px, calc(100vh - 24px));
   overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
   z-index: 9999;
   background: var(--modal-bg);
   border: 1px solid var(--contador-border);
@@ -321,7 +323,7 @@ h1 {
   padding: 16px;
   box-shadow:
     0 18px 45px var(--modal-shadow),
-    0 4px 14px rgba(201, 64, 130, 0.14);
+    0 4px 14px var(--curso-aprobado-shadow);
   font-family: 'Montserrat', sans-serif;
   text-align: left;
   color: #444;
@@ -350,7 +352,7 @@ h1 {
 
 .popover-electivos-header h3 {
   margin: 0;
-  color: #c94082;
+  color: var(--contador-text);
   font-size: 16px;
   font-weight: 700;
 }
@@ -361,8 +363,8 @@ h1 {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #ffe0ec;
-  color: #c94082;
+  background: var(--contador-bg);
+  color: var(--contador-text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -374,14 +376,14 @@ h1 {
 }
 
 .popover-cerrar:hover {
-  background: #f8cddd;
+  background: var(--curso-bg-2);
   transform: scale(1.05);
 }
 
 .popover-ayuda {
   margin: 0 0 12px;
   font-size: 12px;
-  color: #9b3c68;
+  color: var(--texto-suave);
   line-height: 1.4;
 }
 
@@ -395,7 +397,7 @@ h1 {
   all: unset;
   box-sizing: border-box;
   width: 100%;
-  border: 1px solid #f3a3c6;
+  border: 1px solid var(--contador-border);
   background: #ffffff;
   border-radius: 14px;
   padding: 10px 11px;
@@ -411,11 +413,11 @@ h1 {
 
 .opcion-electiva:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(201, 64, 130, 0.15);
+  box-shadow: 0 8px 18px var(--curso-aprobado-shadow);
 }
 
 .opcion-electiva strong {
-  color: #c94082;
+  color: var(--contador-text);
   font-size: 12px;
   font-weight: 700;
   line-height: 1.25;
@@ -428,13 +430,13 @@ h1 {
 
 .opcion-electiva small {
   font-size: 9px;
-  color: #8a5a70;
+  color: var(--texto-suave);
   line-height: 1.25;
 }
 
 .opcion-electiva.seleccionada {
-  background: linear-gradient(145deg, #f28cb1, #d66794);
-  border-color: #d66794;
+  background: linear-gradient(145deg, var(--curso-aprobado-1), var(--curso-aprobado-2));
+  border-color: var(--curso-aprobado-2);
   color: white;
 }
 
@@ -469,8 +471,8 @@ h1 {
   width: 100%;
   margin-top: 12px;
   padding: 10px;
-  background: #ffe0ec;
-  color: #c94082;
+  background: var(--contador-bg);
+  color: var(--contador-text);
   border-radius: 14px;
   font-family: 'Montserrat', sans-serif;
   font-size: 12px;
@@ -481,41 +483,7 @@ h1 {
 }
 
 .quitar-electivo:hover {
-  background: #f8cddd;
-}
-
-body::after {
-  content: "✨ 🌸 💗 ✨ 🌸";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0.05;
-  font-size: 40px;
-  pointer-events: none;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  z-index: 0;
-}
-
-.curso.electivo.aprobado {
-  background: linear-gradient(145deg, var(--curso-aprobado-1), var(--curso-aprobado-2)) !important;
-  border: none !important;
-  color: #ffffff !important;
-  box-shadow:
-    4px 4px 10px var(--curso-aprobado-shadow),
-    -4px -4px 8px rgba(255, 255, 255, 0.3) !important;
-}
-
-.curso.electivo.aprobado .creditos,
-.curso.electivo.aprobado .estado-electivo {
-  color: #fff7fb;
-}
-
-.curso.electivo.aprobado:hover {
-  border: none;
+  background: var(--curso-bg-2);
 }
 
 .selector-tema {
@@ -560,4 +528,20 @@ body::after {
   background: linear-gradient(145deg, var(--curso-aprobado-1), var(--curso-aprobado-2));
   color: white;
   border-color: transparent;
+}
+
+body::after {
+  content: "✨ 🌸 💗 ✨ 🌸";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.05;
+  font-size: 40px;
+  pointer-events: none;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 0;
 }
